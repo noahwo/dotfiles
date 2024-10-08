@@ -5,7 +5,7 @@ cache/
 log/
 *.swp
 .DS_Store
-
+lazy-lock.json
 # editor configs
 .vscode
 .idea
