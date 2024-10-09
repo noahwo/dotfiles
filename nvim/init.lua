@@ -22,6 +22,14 @@ Kickstart Guide:
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
+-- Detect the OS
+local is_mac = vim.fn.has('macunix') == 1
+local is_linux = vim.fn.has('unix') == 1 and not is_mac
+local in_tmux = os.getenv("TMUX") ~= nil
+local has_xclip = vim.fn.executable('xclip') == 1
+
+
+
 -- Set to true if you have a Nerd Font installed and selected in the terminal
 vim.g.have_nerd_font = true
 
@@ -46,22 +54,73 @@ vim.opt.showmode = false
 --  Schedule the setting after `UiEnter` because it can increase startup-time.
 --  Remove this option if you want your OS clipboard to remain independent.
 --  See `:help 'clipboard'`
-vim.g.clipboard = {
-  name = 'xclip',
-  copy = {
-    ['+'] = 'xclip -selection clipboard',
-    ['*'] = 'xclip -selection clipboard',
-  },
-  paste = {
-    ['+'] = 'xclip -selection clipboard -o',
-    ['*'] = 'xclip -selection clipboard -o',
-  },
-  cache_enabled = 1,
-}
---vim.schedule(function()
+
+----vim.schedule(function()
 vim.opt.clipboard:append 'unnamedplus'
 --end)
 
+
+if is_mac then
+    -- macOS clipboard configuration
+    -- macOS usually works with the system clipboard out of the box
+    -- No additional configuration needed
+elseif in_tmux then
+    -- Use tmux clipboard
+    vim.g.clipboard = {
+        name = 'tmux',
+        copy = {
+            ['+'] = 'tmux load-buffer -',
+            ['*'] = 'tmux load-buffer -',
+        },
+        paste = {
+            ['+'] = 'tmux save-buffer -',
+            ['*'] = 'tmux save-buffer -',
+        },
+        cache_enabled = false,
+    }
+elseif is_linux and has_xclip then
+    -- Use xclip for Linux with X11
+    vim.g.clipboard = {
+        name = 'xclip',
+        copy = {
+            ['+'] = 'xclip -selection clipboard',
+            ['*'] = 'xclip -selection primary',
+        },
+        paste = {
+            ['+'] = 'xclip -selection clipboard -o',
+            ['*'] = 'xclip -selection primary -o',
+        },
+        cache_enabled = true,
+    }
+else
+    -- Fallback to OSC52 for other cases
+    local function copy_osc52(text)
+        local encoded = vim.fn.system("base64", text)
+        encoded = string.gsub(encoded, "\n", "")
+        local osc = string.format("\x1b]52;c;%s\x07", encoded)
+        io.stdout:write(osc)
+    end
+
+    vim.g.clipboard = {
+        name = 'osc52',
+        copy = {
+            ['+'] = function(lines)
+                copy_osc52(table.concat(lines, "\n"))
+            end,
+            ['*'] = function(lines)
+                copy_osc52(table.concat(lines, "\n"))
+            end,
+        },
+        paste = {
+            ['+'] = function()
+                return { vim.fn.getreg('+') }
+            end,
+            ['*'] = function()
+                return { vim.fn.getreg('*') }
+            end,
+        },
+    }
+end
 -- Enable break indent
 vim.opt.breakindent = true
 
@@ -114,6 +173,7 @@ vim.keymap.set('i', 'jk', '<Esc>')
 vim.keymap.set('v', 'jk', '<Esc>')
 vim.keymap.set('n', 'Q', ':q!<CR>')
 vim.keymap.set('n', 'W', ':w<CR>')
+vim.keymap.set('n', 'zz', ':wq<CR>')
 -- Diagnostic keymaps
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
 
