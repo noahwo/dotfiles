@@ -134,6 +134,10 @@ gac() {
     git -C $HOME/dotfiles/ add . && git -C $HOME/dotfiles/ commit -m "$1"
 }
 
+dotfiles() {
+    git -C $HOME/dotfiles/ add . && git -C $HOME/dotfiles/ commit -m "$1" && git -C $HOME/dotfiles/ push origin
+}
+
 ############################
 #   OS-specific .settings  #
 ############################
