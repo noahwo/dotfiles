@@ -127,7 +127,12 @@ export EDITOR='nvim'
 
 alias c="clear"
 alias v="nvim"
-
+alias add="git add"
+alias commit="git commit"
+alias push="git push"
+alias pull="git pull"
+alias clone="git clone"
+alias merge="git merge"
 # FUNCTIONS
 
 gac() {
