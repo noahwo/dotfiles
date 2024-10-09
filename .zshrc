@@ -8,7 +8,9 @@
 # Path to your Oh My Zsh installation.
 export ZSH="$HOME/.config/zsh/.oh-my-zsh"
 export ZSHRC="$HOME/dotfiles/.zshrc"
-export VC="$MYVIMRC"
+export ZC="$HOME/dotfiles/.zshrc"
+export VC="$HOME/dotfiles/nvim/init.lua"
+export TC="$HOME/dotfiles/.tmux.conf"
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time Oh My Zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
