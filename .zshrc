@@ -127,18 +127,29 @@ export EDITOR='nvim'
 
 alias c="clear"
 alias v="nvim"
+alias t="tmux"
+## git aliases
 alias add="git add"
-alias commit="git commit"
-alias push="git push"
+# alias commit="git commit"
+ alias push="git push"
 alias pull="git pull"
 alias clone="git clone"
 alias merge="git merge"
 # FUNCTIONS
 
+commit() {
+    git commit -m"$1"
+}
+# git add + commit
 gac() {
-    git -C $HOME/dotfiles/ add . && git -C $HOME/dotfiles/ commit -m "$1"
+    git add . && git commit -m "$1"
+}
+# add, commit, push
+gacp() {
+    git add . && git commit -m "$1" && git push
 }
 
+# git add + commit + push to origin
 dotfiles() {
     git -C $HOME/dotfiles/ add . && git -C $HOME/dotfiles/ commit -m "$1" && git -C $HOME/dotfiles/ push origin
 }
