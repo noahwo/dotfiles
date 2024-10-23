@@ -6,6 +6,7 @@
 -- local in_tmux = os.getenv 'TMUX' ~= nil
 -- local has_xclip = vim.fn.executable 'xclip' == 1
 
+
 -- [[ Setting options ]]
 -- See `:help vim.opt`
 -- NOTE: You can change these options as you wish!
@@ -18,7 +19,7 @@ vim.opt.number = true
 vim.opt.relativenumber = true
 
 -- Enable mouse mode, can be useful for resizing splits for example!
-vim.opt.mouse = "a"
+vim.opt.mouse = 'a'
 
 -- Don't show the mode, since it's already in the status line
 vim.opt.showmode = false
@@ -29,66 +30,67 @@ vim.opt.showmode = false
 --  See `:help 'clipboard'`
 
 ----vim.schedule(function()
-vim.opt.clipboard:append("unnamedplus")
+vim.opt.clipboard:append 'unnamedplus'
 --end)
 
-if vim.fn.has("macunix") == 1 then
+
+if vim.fn.has 'macunix' == 1 then
   -- macOS clipboard configuration
   -- macOS usually works with the system clipboard out of the box
   -- No additional configuration needed
-elseif os.getenv("TMUX") ~= nil then
+elseif in_tmux then
   -- Use tmux clipboard
   vim.g.clipboard = {
-    name = "tmux",
+    name = 'tmux',
     copy = {
-      ["+"] = "tmux load-buffer -",
-      ["*"] = "tmux load-buffer -",
+      ['+'] = 'tmux load-buffer -',
+      ['*'] = 'tmux load-buffer -',
     },
     paste = {
-      ["+"] = "tmux save-buffer -",
-      ["*"] = "tmux save-buffer -",
+      ['+'] = 'tmux save-buffer -',
+      ['*'] = 'tmux save-buffer -',
     },
     cache_enabled = false,
   }
-elseif vim.fn.has("unix") == 1 and vim.fn.has("macunix") ~= 1 and vim.fn.executable("xclip") == 1 then
+elseif vim.fn.has('unix') == 1 and vim.fn.has('macunix') ~= 1 and vim.fn.executable('xclip') == 1 then
   -- Use xclip for Linux with X11
   vim.g.clipboard = {
-    name = "xclip",
+    name = 'xclip',
     copy = {
-      ["+"] = "xclip -selection clipboard",
-      ["*"] = "xclip -selection primary",
+      ['+'] = 'xclip -selection clipboard',
+      ['*'] = 'xclip -selection primary',
     },
     paste = {
-      ["+"] = "xclip -selection clipboard -o",
-      ["*"] = "xclip -selection primary -o",
+      ['+'] = 'xclip -selection clipboard -o',
+      ['*'] = 'xclip -selection primary -o',
     },
     cache_enabled = true,
   }
 else
   -- Fallback to OSC52 for other cases
   local function copy_osc52(text)
-    local encoded = vim.fn.system("base64", text)
-    encoded = string.gsub(encoded, "\n", "")
-    local osc = string.format("\x1b]52;c;%s\x07", encoded)
+    local encoded = vim.fn.system('base64', text)
+    encoded = string.gsub(encoded, '\n', '')
+    local osc = string.format('\x1b]52;c;%s\x07', encoded)
     io.stdout:write(osc)
   end
 
   vim.g.clipboard = {
-    name = "osc52",
+    name = 'osc52',
     copy = {
-      ["+"] = function(lines)
-        copy_osc52(table.concat(lines, "\n"))
+      ['+'] = function(lines)
+        copy_osc52(table.concat(lines, '\n'))
       end,
-      ["*"] = function(lines)
-        copy_osc52(table.concat(lines, "\n"))
+      ['*'] = function(lines)
+        copy_osc52(table.concat(lines, '\n'))
       end,
     },
     paste = {
-      ["+"] = function()
-        return { vim.fn.getreg("+") }
+      ['+'] = function()
+        return { vim.fn.getreg '+' }
       end,
-      ["*"] = function()
-        return { vim.fn.getreg("*") }
+      ['*'] = function()
+        return { vim.fn.getreg '*' }
       end,
     },
   }
@@ -105,7 +107,7 @@ vim.opt.ignorecase = true
 vim.opt.smartcase = true
 
 -- Keep signcolumn on by default
-vim.opt.signcolumn = "yes"
+vim.opt.signcolumn = 'yes'
 
 -- Decrease update time
 vim.opt.updatetime = 250
@@ -122,10 +124,10 @@ vim.opt.splitbelow = true
 --  See `:help 'list'`
 --  and `:help 'listchars'`
 vim.opt.list = true
-vim.opt.listchars = { tab = "» ", trail = "·", nbsp = "␣" }
+vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
 
 -- Preview substitutions live, as you type!
-vim.opt.inccommand = "split"
+vim.opt.inccommand = 'split'
 
 -- Show which line your cursor is on
 vim.opt.cursorline = true
@@ -134,4 +136,4 @@ vim.opt.cursorline = true
 vim.opt.scrolloff = 10
 
 vim.opt.wrap = true
-
+ 
