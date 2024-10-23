@@ -123,8 +123,52 @@ export EDITOR='nvim'
 #
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
-# alias ohmyzsh="mate ~/dotfiles/ add . && git -C $HOME/dotfiles/ commit -m "$1" && git -C $HOME/dotfiles/ push origin
+# alias ohmyzsh="mate ~/.oh-my-zsh"
 
+# OS-specific settings: Aliases
+if [[ "$(uname)" == "Darwin" ]]; then
+    # macOS-specific settings
+    alias in="brew install"
+    alias unin="brew uninstall"
+    alias upd="brew update && brew upgrade"
+    alias upg="brew upgrade"
+
+elif [[ "$(uname)" == "Linux" ]]; then
+    # Linux-specific settings
+    alias in="sudo apt install"
+    alias unin="sudo apt remove"
+    alias upd="sudo apt update && sudo apt upgrade"
+    alias upg="sudo apt upgrade"
+fi
+alias c="clear"
+alias v="nvim"
+alias t="tmux"
+## git aliases
+alias add="git add"
+# alias commit="git commit"
+alias push="git push"
+alias pull="git pull"
+alias clone="git clone"
+alias merge="git merge"
+
+# FUNCTIONS
+
+commit() {
+    git commit -m"$1"
+}
+# git add + commit
+gac() {
+    git add . && git commit -m "$1"
+}
+# add, commit, push
+gacp() {
+    git add . && git commit -m "$1" && git push
+}
+
+# git add + commit + push to origin
+dotfiles() {
+    git -C $HOME/dotfiles/ add . && git -C $HOME/dotfiles/ commit -m "$1" && git -C $HOME/dotfiles/ push origin
+}
 
 ############################
 #   OS-specific .settings  #
@@ -153,9 +197,8 @@ if [[ "$(uname)" == "Darwin" ]]; then
 
 elif [[ "$(uname)" == "Linux" ]]; then
     # Linux-specific settings
-    export CUDA_HOME=/usr/local/cuda126
-    export PATH=$CUDA_HOME/bin:$PATH
-    export LD_LIBRARY=$LD_LIBRARY:$CUDA_HOME/lib64
+
+    export PATH=/usr/local/cuda-12/bin:$PATH
     export PATH=/home/han/.local/bin:$PATH
     export GIT_EDITOR=vim
 
@@ -173,6 +216,6 @@ elif [[ "$(uname)" == "Linux" ]]; then
     fi
     unset __conda_setup
     # <<< conda initialize <<<
-    conda activate llmdev
+    conda activate colab
 
 fi
