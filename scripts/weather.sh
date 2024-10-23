@@ -8,13 +8,13 @@ RESULT=$(curl --silent https://wttr.in/"$IP"?format="%C+%f" | xargs)
 
 # Deal with some strange possible outcomes
 if [[ $RESULT == Unknow* ]]; then
-    echo "n/a"
+  echo "ei toimi"
 elif [[ $RESULT == \<!DOCTYPE* ]]; then
-    echo "n/a"
+  echo "ei toimi"
 elif [[ $RESULT == Sorr* ]]; then
-    echo "n/a"
+  echo "ei toimi"
 elif [[ $RESULT == This* ]]; then
-    echo "n/a"
+  echo "ei toimi"
 else
-    echo "$RESULT"
+  echo "$RESULT"
 fi
