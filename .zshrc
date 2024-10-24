@@ -113,6 +113,10 @@ export EDITOR='nvim'
 # Compilation flags
 # export ARCHFLAGS="-arch $(uname -m)"
 
+###############
+#   ALIASES   #
+###############
+
 # Set personal aliases, overriding those provided by Oh My Zsh libs,
 # plugins, and themes. Aliases can be placed here, though Oh My Zsh
 # users are encouraged to define aliases within a top-level file in
@@ -125,24 +129,9 @@ export EDITOR='nvim'
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-# OS-specific settings: Aliases
-if [[ "$(uname)" == "Darwin" ]]; then
-    # macOS-specific settings
-    alias in="brew install"
-    alias unin="brew uninstall"
-    alias upd="brew update && brew upgrade"
-    alias upg="brew upgrade"
-
-elif [[ "$(uname)" == "Linux" ]]; then
-    # Linux-specific settings
-    alias in="sudo apt install"
-    alias unin="sudo apt remove"
-    alias upd="sudo apt update && sudo apt upgrade"
-    alias upg="sudo apt upgrade"
-fi
 alias c="clear"
 alias v="nvim"
-alias t="tmux"
+
 ## git aliases
 alias add="git add"
 # alias commit="git commit"
@@ -150,6 +139,32 @@ alias push="git push"
 alias pull="git pull"
 alias clone="git clone"
 alias merge="git merge"
+
+# Tmux Aliases
+alias t='tmux' # Start tmux
+alias ta='tmux attach-session' # Attach to a tmux session
+alias tat='tmux attach-session -t' # Attach to a tmux session with name
+alias tks='tmux kill-session -a' # Kill all tmux sessions
+alias tl='tmux list-sessions' # List tmux sessions
+alias tn='tmux new-session' # Start a new tmux session
+alias tns='tmux new -s' # Start a new tmux session with name
+alias ts='tmux new-session -s' # Start a new tmux session
+
+# OS-specific settings: Aliases
+if [[ "$(uname)" == "Darwin" ]]; then
+  # macOS-specific settings
+  alias in="brew install"
+  alias unin="brew uninstall"
+  alias upd="brew update && brew upgrade"
+  alias upg="brew upgrade"
+
+elif [[ "$(uname)" == "Linux" ]]; then
+  # Linux-specific settings
+  alias in="sudo apt install"
+  alias unin="sudo apt remove"
+  alias upd="sudo apt update && sudo apt upgrade"
+  alias upg="sudo apt upgrade"
+fi
 
 # FUNCTIONS
 
