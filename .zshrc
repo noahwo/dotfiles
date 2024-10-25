@@ -164,6 +164,7 @@ elif [[ "$(uname)" == "Linux" ]]; then
   alias unin="sudo apt remove"
   alias upd="sudo apt update && sudo apt upgrade"
   alias upg="sudo apt upgrade"
+  alias batch_run='tmux new-session -d -s batch_session "/home/han/anaconda3/envs/llmdev/bin/python /home/han/Projects/tinyml-autopilot/dev/test_in_batch/batch_run.py" \; attach-session -t batch_session'
 fi
 
 # FUNCTIONS
