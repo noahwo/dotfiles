@@ -232,6 +232,6 @@ elif [[ "$(uname)" == "Linux" ]]; then
     fi
     unset __conda_setup
     # <<< conda initialize <<<
-    conda activate colab
+    conda activate llmdev
 
 fi
