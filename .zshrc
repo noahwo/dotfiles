@@ -134,7 +134,9 @@ alias v="nvim"
 
 ## git aliases
 alias add="git add"
-# alias commit="git commit"
+alias checkout="git checkout"
+alias commit="git commit"
+alias rebase='git rebase'
 alias push="git push"
 alias pull="git pull"
 alias clone="git clone"
