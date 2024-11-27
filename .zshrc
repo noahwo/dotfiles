@@ -163,6 +163,7 @@ elif [[ "$(uname)" == "Linux" ]]; then
   # Linux-specific settings
   alias in="sudo apt install"
   alias unin="sudo apt remove"
+  alias up="sudo apt update"
   alias upd="sudo apt update && sudo apt upgrade"
   alias upg="sudo apt upgrade"
   alias batch_run='tmux new-session -d -s batch_session "/home/han/anaconda3/envs/llmdev/bin/python /home/han/Projects/tinyml-autopilot/dev/test_in_batch/batch_run.py" \; attach-session -t batch_session'
