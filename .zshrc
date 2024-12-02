@@ -158,7 +158,7 @@ if [[ "$(uname)" == "Darwin" ]]; then
   alias unin="brew uninstall"
   alias upd="brew update && brew upgrade"
   alias upg="brew upgrade"
-
+  alias turso="ssh -YA wuguangh@turso.cs.helsinki.fi"
 elif [[ "$(uname)" == "Linux" ]]; then
   # Linux-specific settings
   alias in="sudo apt install"
