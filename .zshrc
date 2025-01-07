@@ -151,6 +151,9 @@ alias tn='tmux new-session' # Start a new tmux session
 alias tns='tmux new -s' # Start a new tmux session with name
 alias ts='tmux new-session -s' # Start a new tmux session
 
+# docker
+alias docker-rm="docker ps -aq | xargs docker stop | xargs docker rm"
+
 # OS-specific settings: Aliases
 if [[ "$(uname)" == "Darwin" ]]; then
   # macOS-specific settings
