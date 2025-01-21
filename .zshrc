@@ -131,7 +131,7 @@ export EDITOR='nvim'
 
 alias c="clear"
 alias v="nvim"
-
+alias tomd="~/dotfiles/scripts/tomd.sh"
 ## git aliases
 alias add="git add"
 alias checkout="git checkout"
