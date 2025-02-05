@@ -1,0 +1,122 @@
+#!/usr/bin/env sh
+# 脚本解释器 => sh
+
+sudo yabai --load-sa
+# 命令 => 加载yabai的脚本添加组件(需要root权限)
+
+yabai -m signal --add event=dock_did_restart action="sudo yabai --load-sa"
+# 信号监听 => 当Dock重启时，重新加载yabai的脚本添加组件
+
+# global settings
+# 配置类型 => 全局设置
+yabai -m config mouse_follows_focus off
+# 鼠标跟随焦点 => 关闭
+
+yabai -m config focus_follows_mouse off
+# 焦点跟随鼠标 => 关闭
+
+yabai -m config window_origin_display default
+# 新窗口的显示器位置 => 默认
+
+yabai -m config window_placement second_child
+# 新窗口放置位置 => 第二个子位置
+
+yabai -m config window_topmost off
+# 窗口始终置顶 => 关闭
+
+yabai -m config window_shadow on
+# 窗口阴影 => 开启
+
+yabai -m config window_opacity off
+# 窗口透明度 => 关闭
+
+yabai -m config window_opacity_duration 0.0
+# 窗口透明度变化动画持续时间 => 0秒
+
+yabai -m config active_window_opacity 1.0
+# 活动窗口的不透明度 => 1.0
+
+yabai -m config normal_window_opacity 0.90
+# 普通窗口的不透明度 => 0.90
+
+yabai -m config window_border off
+# 窗口边框 => 关闭
+
+yabai -m config window_border_width 6
+# 窗口边框宽度 => 6像素
+
+yabai -m config active_window_border_color 0xff775759
+# 活动窗口边框颜色 => 粉红色(0xff775759)
+
+yabai -m config normal_window_border_color 0xff555555
+# 普通窗口边框颜色 => 灰色(0xff555555)
+
+yabai -m config insert_feedback_color 0xffd75f5f
+# 窗口插入反馈颜色 => 红色(0xffd75f5f)
+
+yabai -m config split_ratio 0.50
+# 窗口分割比例 => 0.50
+
+yabai -m config auto_balance off
+# 自动平衡窗口大小 => 关闭
+
+yabai -m config mouse_modifier fn
+# 鼠标修饰键 => fn键
+
+yabai -m config mouse_action1 move
+# 鼠标动作1 => 移动窗口
+
+yabai -m config mouse_action2 resize
+# 鼠标动作2 => 调整窗口大小
+
+yabai -m config mouse_drop_action swap
+# 鼠标拖放动作 => 交换窗口
+
+# general space settings
+# 配置类型 => 工作区通用设置
+yabai -m config layout bsp
+# 布局方式 => 二叉空间分区(BSP)
+
+yabai -m config top_padding 5
+# 顶部边距 => 15像素
+
+yabai -m config bottom_padding 5
+# 底部边距 => 15像素
+
+yabai -m config left_padding 5
+# 左侧边距 => 15像素
+
+yabai -m config right_padding 5
+# 右侧边距 => 15像素
+
+yabai -m config window_gap 5
+# 窗口间隙 => 15像素
+
+# apps to not manage (ignore)
+# 配置类型 => 不受yabai管理的应用程序列表
+yabai -m rule --add app="^System Preferences$" manage=off
+# 系统偏好设置 => 不受管理
+
+yabai -m rule --add app="^Archive Utility$" manage=off
+# 压缩工具 => 不受管理
+
+yabai -m rule --add app="^Wally$" manage=off
+# Wally应用 => 不受管理
+
+yabai -m rule --add app="^Pika$" manage=off
+# Pika应用 => 不受管理
+
+yabai -m rule --add app="^balenaEtcher$" manage=off
+# balenaEtcher应用 => 不受管理
+
+yabai -m rule --add app="^Creative Cloud$" manage=off
+# Creative Cloud应用 => 不受管理
+
+yabai -m rule --add app="^Logi Options$" manage=off
+# Logi Options应用 => 不受管理
+
+yabai -m rule --add app="^Alfred Preferences$" manage=off
+# Alfred偏好设置 => 不受管理
+
+echo "yabai configuration loaded.."
+# 输出信息 => yabai配置已加载

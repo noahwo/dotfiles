@@ -131,7 +131,7 @@ export EDITOR='nvim'
 
 alias c="clear"
 alias v="nvim"
-alias tomd="~/dotfiles/scripts/tomd.sh"
+
 ## git aliases
 alias add="git add"
 alias checkout="git checkout"
@@ -216,6 +216,8 @@ if [[ "$(uname)" == "Darwin" ]]; then
     # <<< conda initialize <<<
     conda activate datasci2
 
+    # for skidl python library
+    export KICAD_SYMBOL_DIR="/usr/share/kicad/library"
 elif [[ "$(uname)" == "Linux" ]]; then
     # Linux-specific settings
 
