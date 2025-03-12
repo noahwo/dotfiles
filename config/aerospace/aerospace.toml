@@ -98,13 +98,13 @@ outer.right =      0
 # See: https://nikitabobko.github.io/AeroSpace/commands#exec-and-forget
 # You can uncomment the following lines to open up terminal with alt + enter shortcut
 # (like in i3)
-alt-enter = '''exec-and-forget osascript -e '
-tell application "Terminal"
-do script
-activate
-end tell'
-'''
-
+# alt-enter = '''exec-and-forget osascript -e '
+# tell application "iterm2"
+# do script
+# activate
+# end tell'
+# '''
+alt-enter = ['''exec-and-forget open -n /Applications/iTerm.app''','move-node-to-workspace T']
 # 布局控制
 # See: https://nikitabobko.github.io/AeroSpace/commands#layout
 alt-slash = 'layout tiles horizontal vertical'
@@ -135,12 +135,12 @@ alt-7 = 'workspace 7'
 alt-8 = 'workspace 8'
 alt-9 = 'workspace 9'
 alt-b = 'workspace B' # Browser
-# alt-e = 'workspace E'
+alt-z = 'workspace R' # Reading
 # alt-m = 'workspace M'
 alt-n = 'workspace N' # Note
 # alt-p = 'workspace P'
 alt-t = 'workspace T' # Terminal
-alt-v = 'workspace C' # Coding
+alt-c = 'workspace C' # Coding
 alt-u = 'workspace U' # Utility
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#move-node-to-workspace
@@ -155,12 +155,12 @@ alt-shift-8 = 'move-node-to-workspace 8'
 alt-shift-9 = 'move-node-to-workspace 9'
 alt-shift-b = 'move-node-to-workspace B' # Browser∫ı
 # alt-shift-e = 'move-node-to-workspace E'
-# alt-shift-m = 'move-node-to-workspace M'
+alt-shift-z = 'move-node-to-workspace R' # Reading
 alt-shift-n = 'move-node-to-workspace N' # Note
 # alt-shift-p = 'move-node-to-workspace P'
 alt-shift-u = 'move-node-to-workspace U' # Utility
 alt-shift-t = 'move-node-to-workspace T' # Terminal
-alt-shift-v = 'move-node-to-workspace C' # Coding
+alt-shift-c = 'move-node-to-workspace C' # Coding
 
 alt-shift-f = 'fullscreen'
 
@@ -195,15 +195,6 @@ up = 'volume up'
 shift-down = ['volume set 0', 'mode main']
 
 
-# See full list of app-id: https://nikitabobko.github.io/AeroSpace/goodies#popular-apps-ids
-[[on-window-detected]]
-if.app-id = 'com.google.Chrome'
-check-further-callbacks = true
-run = "move-node-to-workspace B"
-
-
-
-
 [mode.resize.binding]
 h = 'resize width -50'
 j = 'resize height +50'
@@ -220,4 +211,132 @@ enter = 'mode main'
 esc = 'mode main'
 # 'service' binding mode declaration.
 # See: https://nikitabobko.github.io/AeroSpace/guide#binding-modes
+
+
+# See full list of app-id: https://nikitabobko.github.io/AeroSpace/goodies#popular-apps-ids or use `aerospace list-apps` CLI command to get IDs of running applications
+
+# Broswers 
+# move Chrome to Browser workspace
+[[on-window-detected]]
+if.app-id = 'com.google.Chrome'
+run = "move-node-to-workspace B"
+
+# move Safari to Browser workspace
+[[on-window-detected]]
+if.app-id = 'com.apple.Safari'
+run = "move-node-to-workspace B"
+
+# Terminals
+# move Terminal to Terminal workspace
+[[on-window-detected]]
+if.app-id = 'com.apple.Terminal'
+run = "move-node-to-workspace T"
+
+# move iTerm to Terminal workspace
+[[on-window-detected]]
+if.app-id = 'com.googlecode.iterm2'
+run = "move-node-to-workspace T"
+
+# Coding
+# move Cursor to Coding workspace
+[[on-window-detected]]
+if.app-id = 'com.todesktop.230313mzl4w4u92'
+run = "move-node-to-workspace C"
+
+# move VSCode to Coding workspace
+[[on-window-detected]]
+if.app-id = 'com.microsoft.VSCode'
+run = "move-node-to-workspace C"
+
+
+# Utilities
+# move Docker Desktop to Utility workspace
+[[on-window-detected]]
+if.app-id = 'com.electron.dockerdesktop'
+run = "move-node-to-workspace U"
+
+# move Reminders to Utility workspace
+[[on-window-detected]]
+if.app-id = 'com.apple.reminders'
+run = "move-node-to-workspace U"
+
+# move Spotify to Utility workspace
+[[on-window-detected]]
+if.app-id = 'com.spotify.client'
+run = "move-node-to-workspace U"
+
+# move Discord to Utility workspace
+[[on-window-detected]]
+if.app-id = 'com.hnc.Discord'
+run = "move-node-to-workspace U"
+
+# move Telegram to Utility workspace
+[[on-window-detected]]
+if.app-id = 'ru.keepcoder.Telegram'
+run = "move-node-to-workspace U"
+
+# move Finder to Utility workspace
+[[on-window-detected]]
+if.app-id = 'com.apple.finder'
+run = "move-node-to-workspace U"
+
+# move FreeDict to Utility workspace
+[[on-window-detected]]
+if.app-id = 'com.eusoft.freeeudic'
+run = "move-node-to-workspace U"
+
+# Reading
+# move Preview to Reading workspace
+[[on-window-detected]]
+if.app-id = 'com.apple.Preview'
+run = "move-node-to-workspace R"
+
+# move Zotero to Reading workspace
+[[on-window-detected]]
+if.app-id = 'org.zotero.zotero-beta'
+run = "move-node-to-workspace R"
+
+# move Zotero to Reading workspace
+[[on-window-detected]]
+if.app-id = 'org.zotero.zotero'
+run = "move-node-to-workspace R"
+
+# move Marginnote 4 to Reading workspace
+[[on-window-detected]]
+if.app-id = 'QReader.MarginStudy.easy'
+run = "move-node-to-workspace R"
+
+# move Preview to Reading workspace
+[[on-window-detected]]
+if.app-id = 'com.apple.Preview'
+run = "move-node-to-workspace R"
+
+# move zathura to Reading workspace
+[[on-window-detected]]
+if.app-id = 'com.apple.automator.zathura'
+run = "move-node-to-workspace R"
+
+# Notes
+# move Obsidian to Note workspace
+[[on-window-detected]]
+if.app-id = 'md.obsidian'
+run = "move-node-to-workspace N"
+ 
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

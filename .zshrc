@@ -8,6 +8,7 @@ export PATH=$HOME/bin:$HOME/.local/bin:/usr/local/bin:$HOME/dotfiles/scripts:$PA
 # Path to your Oh My Zsh installation.
 export ZSH="$HOME/.config/zsh/.oh-my-zsh"
 export ZSHRC="$HOME/dotfiles/.zshrc"
+export ASRC="$HOME/.config/aerospace/aerospace.toml"
 export ZC="$HOME/dotfiles/.zshrc"
 export VC="$HOME/dotfiles/nvim/init.lua"
 export TC="$HOME/dotfiles/.tmux.conf"
@@ -131,7 +132,7 @@ export EDITOR='nvim'
 
 alias c="clear"
 alias v="nvim"
-
+alias boxy="~/dotfiles/scripts/boxy.sh"
 ## git aliases
 alias add="git add"
 alias checkout="git checkout"
@@ -242,3 +243,10 @@ elif [[ "$(uname)" == "Linux" ]]; then
     conda activate llmdev
 
 fi
+alias g++="g++-14"
+export PATH="/opt/homebrew/opt/qt@5/bin:$PATH"
+# The following lines have been added by Docker Desktop to enable Docker CLI completions.
+fpath=(/Users/hann/.docker/completions $fpath)
+autoload -Uz compinit
+compinit
+# End of Docker CLI completions

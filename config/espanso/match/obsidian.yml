@@ -23,7 +23,7 @@ matches:
       - name: hdate
         type: date
         params:
-          format: "## %d/%b. /%a /%Y\n\n"
+          format: "## %d/%b. %a %Y\n\n"
 
   - trigger: ":now"
     replace: "{{nowdt}}"
