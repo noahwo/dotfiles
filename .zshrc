@@ -159,26 +159,39 @@ alias docker-rm="docker ps -aq | xargs docker stop | xargs docker rm"
 # OS-specific settings: Aliases
 if [[ "$(uname)" == "Darwin" ]]; then
   # macOS-specific settings
+  TAR=gtar
   alias in="brew install"
   alias unin="brew uninstall"
   alias upd="brew update && brew upgrade"
   alias upg="brew upgrade"
   alias turso="ssh -YA wuguangh@turso.cs.helsinki.fi"
-  alias tzst="gtar --zstd -cf"
-  alias xzst="gtar --zstd xf"
+
 elif [[ "$(uname)" == "Linux" ]]; then
   # Linux-specific settings
+  TAR=tar
   alias in="sudo apt install"
   alias unin="sudo apt remove"
   alias up="sudo apt update"
   alias upd="sudo apt update && sudo apt upgrade"
   alias upg="sudo apt upgrade"
   alias batch_run='tmux new-session -d -s batch_session "/home/han/anaconda3/envs/llmdev/bin/python /home/han/Projects/tinyml-autopilot/dev/test_in_batch/batch_run.py" \; attach-session -t batch_session'
-  alias tzst="tar --zstd -cf"
-  alias xzst="tar --zstd xf"
 
 fi
 
+# Compress with zstd
+czst() {
+  local src="${1%/}"                     # strip trailing slash
+  local archive="${2:-${src##*/}.tar.zst}"  # default: foldername.tar.zst
+  "$TAR" --zstd -cf "$archive" "$src"
+  echo "Created: $archive"
+}
+
+# Extract with zstd
+xzst() {
+  local archive="$1"
+  "$TAR" --zstd -xf "$archive"
+  echo "Extracted: $archive"
+}
 # FUNCTIONS
 
 commit() {
