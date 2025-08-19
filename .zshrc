@@ -155,6 +155,7 @@ alias ts='tmux new-session -s' # Start a new tmux session
 # docker
 alias docker-rm="docker ps -aq | xargs docker stop | xargs docker rm"
 
+
 # OS-specific settings: Aliases
 if [[ "$(uname)" == "Darwin" ]]; then
   # macOS-specific settings
@@ -163,6 +164,8 @@ if [[ "$(uname)" == "Darwin" ]]; then
   alias upd="brew update && brew upgrade"
   alias upg="brew upgrade"
   alias turso="ssh -YA wuguangh@turso.cs.helsinki.fi"
+  alias tzst="gtar --zstd -cf"
+  alias xzst="gtar --zstd xf"
 elif [[ "$(uname)" == "Linux" ]]; then
   # Linux-specific settings
   alias in="sudo apt install"
@@ -171,6 +174,9 @@ elif [[ "$(uname)" == "Linux" ]]; then
   alias upd="sudo apt update && sudo apt upgrade"
   alias upg="sudo apt upgrade"
   alias batch_run='tmux new-session -d -s batch_session "/home/han/anaconda3/envs/llmdev/bin/python /home/han/Projects/tinyml-autopilot/dev/test_in_batch/batch_run.py" \; attach-session -t batch_session'
+  alias tzst="tar --zstd -cf"
+  alias xzst="tar --zstd xf"
+
 fi
 
 # FUNCTIONS
@@ -250,3 +256,13 @@ fpath=(/Users/hann/.docker/completions $fpath)
 autoload -Uz compinit
 compinit
 # End of Docker CLI completions
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+export GEMINI_SANDBOX=true
+
+
+export ANTHROPIC_BASE_URL=https://anyrouter.top 
+#export ANTHROPIC_BASE_URL=https://pmpjfbhq.cn-nb1.rainapp.top
+export ANTHROPIC_AUTH_TOKEN=sk-2kOwrUGiBf3S1fi6C6wogvnxMVlLLpRS5OlVo4AVqVffTvmP
