@@ -102,3 +102,8 @@
 2025-07-09 13:49:43,start_break,break,1
 2025-07-09 13:53:43,finish_break,break,1
 2025-07-09 13:53:43,end_break_no_loop,pomodoro,0
+2025-09-16 19:31:39,start_pomodoro,pomodoro,0
+2025-09-16 19:56:39,finish_pomodoro,pomodoro,1
+2025-09-16 19:56:39,start_break,break,1
+2025-09-16 20:00:39,finish_break,break,1
+2025-09-16 20:00:39,end_break_no_loop,pomodoro,0

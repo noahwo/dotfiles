@@ -1,7 +1,9 @@
 #####################
 #   SHARED .zshrc   #
 #####################
-
+if [ -n "${ZSH_DEBUGRC+1}" ]; then
+    zmodload zsh/zprof
+fi
 # If you come from bash you might have to change your $PATH.
 export PATH=$HOME/bin:$HOME/.local/bin:/usr/local/bin:$HOME/dotfiles/scripts:$PATH
 
@@ -159,16 +161,27 @@ alias docker-rm="docker ps -aq | xargs docker stop | xargs docker rm"
 # OS-specific settings: Aliases
 if [[ "$(uname)" == "Darwin" ]]; then
   # macOS-specific settings
+#    ▗▖  ▗▖ ▗▄▖  ▗▄▄▖ ▗▄▖  ▗▄▄▖     ▗▄▖ ▗▖   ▗▄▄▄▖ ▗▄▖  ▗▄▄▖▗▄▄▄▖ ▗▄▄▖       
+#    ▐▛▚▞▜▌▐▌ ▐▌▐▌   ▐▌ ▐▌▐▌       ▐▌ ▐▌▐▌     █  ▐▌ ▐▌▐▌   ▐▌   ▐▌          
+#    ▐▌  ▐▌▐▛▀▜▌▐▌   ▐▌ ▐▌ ▝▀▚▖    ▐▛▀▜▌▐▌     █  ▐▛▀▜▌ ▝▀▚▖▐▛▀▀▘ ▝▀▚▖       
+#    ▐▌  ▐▌▐▌ ▐▌▝▚▄▄▖▝▚▄▞▘▗▄▄▞▘    ▐▌ ▐▌▐▙▄▄▖▗▄█▄▖▐▌ ▐▌▗▄▄▞▘▐▙▄▄▖▗▄▄▞▘       
+#                                                                            
+#     
   TAR=gtar
   alias in="brew install"
   alias unin="brew uninstall"
   alias upd="brew update && brew upgrade"
   alias upg="brew upgrade"
   alias turso="ssh -YA wuguangh@turso.cs.helsinki.fi"
+  alias acc="sh /Users/hann/dotfiles/scripts/start-antigravity-claude-proxy.sh"
 
 elif [[ "$(uname)" == "Linux" ]]; then
   # Linux-specific settings
-  TAR=tar
+#    ▗▖   ▗▄▄▄▖▗▖  ▗▖▗▖ ▗▖▗▖  ▗▖     ▗▄▖ ▗▖   ▗▄▄▄▖ ▗▄▖  ▗▄▄▖▗▄▄▄▖ ▗▄▄▖      
+#    ▐▌     █  ▐▛▚▖▐▌▐▌ ▐▌ ▝▚▞▘     ▐▌ ▐▌▐▌     █  ▐▌ ▐▌▐▌   ▐▌   ▐▌         
+#    ▐▌     █  ▐▌ ▝▜▌▐▌ ▐▌  ▐▌      ▐▛▀▜▌▐▌     █  ▐▛▀▜▌ ▝▀▚▖▐▛▀▀▘ ▝▀▚▖      
+#    ▐▙▄▄▖▗▄█▄▖▐▌  ▐▌▝▚▄▞▘▗▞▘▝▚▖    ▐▌ ▐▌▐▙▄▄▖▗▄█▄▖▐▌ ▐▌▗▄▄▞▘▐▙▄▄▖▗▄▄▞▘      
+#  
   alias in="sudo apt install"
   alias unin="sudo apt remove"
   alias up="sudo apt update"
@@ -216,31 +229,59 @@ dotfiles() {
 ############################
 if [[ "$(uname)" == "Darwin" ]]; then
     # macOS-specific settings
-
+#                                                                            
+#    ▗▖  ▗▖ ▗▄▖  ▗▄▄▖ ▗▄▖  ▗▄▄▖     ▗▄▄▖▗▄▄▄▖▗▄▄▄▖▗▄▄▄▖▗▄▄▄▖▗▖  ▗▖ ▗▄▄▖ ▗▄▄▖ 
+#    ▐▛▚▞▜▌▐▌ ▐▌▐▌   ▐▌ ▐▌▐▌       ▐▌   ▐▌     █    █    █  ▐▛▚▖▐▌▐▌   ▐▌    
+#    ▐▌  ▐▌▐▛▀▜▌▐▌   ▐▌ ▐▌ ▝▀▚▖     ▝▀▚▖▐▛▀▀▘  █    █    █  ▐▌ ▝▜▌▐▌▝▜▌ ▝▀▚▖ 
+#    ▐▌  ▐▌▐▌ ▐▌▝▚▄▄▖▝▚▄▞▘▗▄▄▞▘    ▗▄▄▞▘▐▙▄▄▖  █    █  ▗▄█▄▖▐▌  ▐▌▝▚▄▞▘▗▄▄▞▘ 
+# 
     # Theme
     ZSH_THEME="apple"
+    
 
-    # >>> conda initialize >>>
-    # !! Contents within this block are managed by 'conda init' !!
-    __conda_setup="$('/Users/hann/anaconda3/bin/conda' 'shell.bash' 'hook' 2>/dev/null)"
-    if [ $? -eq 0 ]; then
-        eval "$__conda_setup"
-    else
-        if [ -f "/Users/hann/anaconda3/etc/profile.d/conda.sh" ]; then
-            . "/Users/hann/anaconda3/etc/profile.d/conda.sh"
-        else
-            export PATH="/Users/hann/anaconda3/bin:$PATH"
-        fi
-    fi
-    unset __conda_setup
+    # >>> conda initialize >>> (lazy loaded)
+    export CONDA_PATH=(/Users/hann/anaconda3/bin/conda /opt/homebrew/bin/conda $HOME/miniconda3/bin/conda)
+
+    conda() {
+        echo "Lazy loading conda upon first invocation..."
+        unfunction conda
+        
+        for conda_path in $CONDA_PATH; do
+            if [[ -f $conda_path ]]; then
+                echo "Using Conda installation found in $conda_path"
+                eval "$($conda_path shell.zsh hook)"
+                
+                # Auto-activate datasci2 after conda loads
+                conda activate datasci2
+                
+                # Run the original command if provided
+                if [[ $# -gt 0 ]]; then
+                    conda $@
+                fi
+                return
+            fi
+        done
+        
+        echo "No conda installation found in $CONDA_PATH"
+    }
+
+    # Trigger conda loading automatically when using python/pip
+    alias python='conda activate datasci2 2>/dev/null; python'
+    alias pip='conda activate datasci2 2>/dev/null; pip'
     # <<< conda initialize <<<
-    conda activate datasci2
 
     # for skidl python library
     export KICAD_SYMBOL_DIR="/usr/share/kicad/library"
 elif [[ "$(uname)" == "Linux" ]]; then
     # Linux-specific settings
-
+#                                                                 
+#                                                                            
+#    ▗▖   ▗▄▄▄▖▗▖  ▗▖▗▖ ▗▖▗▖  ▗▖     ▗▄▄▖▗▄▄▄▖▗▄▄▄▖▗▄▄▄▖▗▄▄▄▖▗▖  ▗▖ ▗▄▄▖ ▗▄▄▖
+#    ▐▌     █  ▐▛▚▖▐▌▐▌ ▐▌ ▝▚▞▘     ▐▌   ▐▌     █    █    █  ▐▛▚▖▐▌▐▌   ▐▌   
+#    ▐▌     █  ▐▌ ▝▜▌▐▌ ▐▌  ▐▌       ▝▀▚▖▐▛▀▀▘  █    █    █  ▐▌ ▝▜▌▐▌▝▜▌ ▝▀▚▖
+#    ▐▙▄▄▖▗▄█▄▖▐▌  ▐▌▝▚▄▞▘▗▞▘▝▚▖    ▗▄▄▞▘▐▙▄▄▖  █    █  ▗▄█▄▖▐▌  ▐▌▝▚▄▞▘▗▄▄▞▘
+#                                                                            
+#
     export PATH=/usr/local/cuda-12/bin:$PATH
     export PATH=/home/han/.local/bin:$PATH
     export GIT_EDITOR=vim
@@ -266,16 +307,70 @@ alias g++="g++-14"
 export PATH="/opt/homebrew/opt/qt@5/bin:$PATH"
 # The following lines have been added by Docker Desktop to enable Docker CLI completions.
 fpath=(/Users/hann/.docker/completions $fpath)
+# autoload -Uz compinit
+# compinit
+#
+# Skip security checks for faster startup
+ZSH_DISABLE_COMPFIX=true
 autoload -Uz compinit
-compinit
-# End of Docker CLI completions
+compinit -C
+if [[ -n ${ZDOTDIR:-$HOME}/.zcompdump(#qN.mh+24) ]]; then
+    compinit
+else
+    compinit -C
+fi
 
+# export NVM_DIR="$HOME/.nvm"
+# [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+# [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+# export GEMINI_SANDBOX=true
+
+# Lazy load NVM (saves ~600ms startup time)
 export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-export GEMINI_SANDBOX=true
+
+nvm() {
+    unset -f nvm node npm npx
+    [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+    [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
+    nvm "$@"
+}
+
+node() {
+    unset -f nvm node npm npx
+    [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+    node "$@"
+}
+
+npm() {
+    unset -f nvm node npm npx
+    [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+    npm "$@"
+}
+
+npx() {
+    unset -f nvm node npm npx
+    [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+    npx "$@"
+}
+
 
 
 export ANTHROPIC_BASE_URL=https://anyrouter.top 
 #export ANTHROPIC_BASE_URL=https://pmpjfbhq.cn-nb1.rainapp.top
 export ANTHROPIC_AUTH_TOKEN=sk-2kOwrUGiBf3S1fi6C6wogvnxMVlLLpRS5OlVo4AVqVffTvmP
+
+# Added by Antigravity
+export PATH="/Users/hann/.antigravity/antigravity/bin:$PATH"
+
+test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+
+export ANTHROPIC_BASE_URL="http://localhost:8080"
+export ANTHROPIC_AUTH_TOKEN="test"
+
+# Added by Antigravity
+export PATH="/Users/hann/.antigravity/antigravity/bin:$PATH"
+
+# At bottom of ~/.zshrc
+if [ -n "${ZSH_DEBUGRC+1}" ]; then
+    zprof
+fi

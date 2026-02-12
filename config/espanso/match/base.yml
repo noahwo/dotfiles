@@ -16,6 +16,9 @@ matches:
 
   # But matches can also be dynamic:
 
+  - trigger: ":ckk"
+    replace: "✅"
+
   # Print the current date
   - trigger: ":date"
     replace: "{{mydate}}"
